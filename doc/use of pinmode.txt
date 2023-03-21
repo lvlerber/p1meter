@@ -1,0 +1,254 @@
+Searched for the use of  pimode in the arduinoespressif framework.
+Excluded results in examples files
+Zoeken "pinmode" (112 overeenkomsten in 54 uit 9919 bestanden)
+
+--> analog to digital conversion : in routine __adcAttachPin() which is an esp32 only
+  C:\Users\Lieven\.platformio\packages\framework-arduinoespressif32\cores\esp32\esp32-hal-adc.c (3 overeenkomsten)
+	Regel 136:     pinMode(pin, ANALOG);
+	Regel 261:     pinMode(36, ANALOG);
+	Regel 262:     pinMode(39, ANALOG);
+
+--> definition of pinmode   
+  C:\Users\Lieven\.platformio\packages\framework-arduinoespressif32\cores\esp32\esp32-hal-gpio.c (4 overeenkomsten)
+	Regel  92: extern void ARDUINO_ISR_ATTR __pinMode(uint8_t pin, uint8_t mode)
+	Regel  96:         __pinMode(RGB_BUILTIN-SOC_GPIO_PIN_COUNT, mode);
+	Regel 228: extern void pinMode(uint8_t pin, uint8_t mode) __attribute__ ((weak, alias("__pinMode")));
+  C:\Users\Lieven\.platformio\packages\framework-arduinoespressif32\cores\esp32\esp32-hal-gpio.h (2 overeenkomsten)
+	Regel 46: // Changed OUTPUT from 0x02 to behave the same as Arduino pinMode(pin,OUTPUT) 
+	Regel 74: void pinMode(uint8_t pin, uint8_t mode);
+
+--> spi, which is only possible on native pins    
+  C:\Users\Lieven\.platformio\packages\framework-arduinoespressif32\cores\esp32\esp32-hal-spi.c (8 overeenkomsten)
+	Regel  194:     pinMode(sck, OUTPUT);
+	Regel  232:     pinMode(miso, INPUT);
+	Regel  270:     pinMode(mosi, OUTPUT);
+	Regel  308:     pinMode(sck, INPUT);
+	Regel  345:     pinMode(miso, INPUT);
+	Regel  382:     pinMode(mosi, INPUT);
+	Regel  422:     pinMode(ss, OUTPUT);
+	Regel  461:     pinMode(ss, INPUT);
+
+--> tinyUsb,  which is only possible on native pins 
+  C:\Users\Lieven\.platformio\packages\framework-arduinoespressif32\cores\esp32\esp32-hal-tinyusb.c (2 overeenkomsten)
+	Regel 412:     pinMode(USBPHY_DM_NUM, OUTPUT_OPEN_DRAIN);
+	Regel 413:     pinMode(USBPHY_DP_NUM, OUTPUT_OPEN_DRAIN);
+
+-->  ethernet, not present, but else would be on those pins i suppose  
+  C:\Users\Lieven\.platformio\packages\framework-arduinoespressif32\libraries\Ethernet\src\ETH.cpp (9 overeenkomsten)
+	Regel  98:         pinMode(0, INPUT);
+	Regel 105:         pinMode(0, INPUT);
+	Regel 109:         pinMode(16, INPUT);
+	Regel 113:         pinMode(17, INPUT);
+	Regel 128:         pinMode(0, INPUT);
+	Regel 140:             pinMode(0, OUTPUT);
+	Regel 150:             pinMode(16, OUTPUT);
+	Regel 158:             pinMode(17, OUTPUT);
+	Regel 210:     pinMode(_eth_phy_power_pin, OUTPUT);
+  
+
+  --> one of the spi pins, must be native for speed
+  C:\Users\Lieven\.platformio\packages\framework-arduinoespressif32\libraries\SD\src\sd_diskio.cpp (1 overeenkomsten)
+	Regel 746:     pinMode(card->ssPin, OUTPUT);
+ 
+
+--> hardware variants : innocent
+  C:\Users\Lieven\.platformio\packages\framework-arduinoespressif32\libraries\Update\src\Updater.cpp (1 overeenkomsten)
+	Regel 352:         pinMode(_ledPin, OUTPUT);
+   C:\Users\Lieven\.platformio\packages\framework-arduinoespressif32\variants\adafruit_feather_esp32s2\variant.cpp (3 overeenkomsten)
+	Regel 36:   pinMode(NEOPIXEL_POWER, OUTPUT);
+	Regel 40:   pinMode(PIN_I2C_POWER, INPUT);
+	Regel 43:   pinMode(PIN_I2C_POWER, OUTPUT);
+  C:\Users\Lieven\.platformio\packages\framework-arduinoespressif32\variants\adafruit_feather_esp32s2_tft\variant.cpp (2 overeenkomsten)
+	Regel 36:   pinMode(NEOPIXEL_POWER, OUTPUT);
+	Regel 38:   pinMode(TFT_I2C_POWER, OUTPUT);
+  C:\Users\Lieven\.platformio\packages\framework-arduinoespressif32\variants\adafruit_feather_esp32s3\variant.cpp (2 overeenkomsten)
+	Regel 36:   pinMode(NEOPIXEL_POWER, OUTPUT);
+	Regel 40:   pinMode(PIN_I2C_POWER, OUTPUT);
+  C:\Users\Lieven\.platformio\packages\framework-arduinoespressif32\variants\adafruit_feather_esp32s3_nopsram\variant.cpp (2 overeenkomsten)
+	Regel 36:   pinMode(NEOPIXEL_POWER, OUTPUT);
+	Regel 40:   pinMode(PIN_I2C_POWER, OUTPUT);
+  C:\Users\Lieven\.platformio\packages\framework-arduinoespressif32\variants\adafruit_feather_esp32s3_tft\variant.cpp (2 overeenkomsten)
+	Regel 36:   pinMode(NEOPIXEL_POWER, OUTPUT);
+	Regel 38:   pinMode(TFT_I2C_POWER, OUTPUT);
+  C:\Users\Lieven\.platformio\packages\framework-arduinoespressif32\variants\adafruit_feather_esp32_v2\variant.cpp (1 overeenkomsten)
+	Regel 36:   pinMode(NEOPIXEL_I2C_POWER, OUTPUT);
+  C:\Users\Lieven\.platformio\packages\framework-arduinoespressif32\variants\adafruit_itsybitsy_esp32\variant.cpp (1 overeenkomsten)
+	Regel 36:   pinMode(NEOPIXEL_POWER, OUTPUT);
+  C:\Users\Lieven\.platformio\packages\framework-arduinoespressif32\variants\adafruit_qtpy_esp32\variant.cpp (1 overeenkomsten)
+	Regel 36:   pinMode(NEOPIXEL_POWER, OUTPUT);
+  C:\Users\Lieven\.platformio\packages\framework-arduinoespressif32\variants\adafruit_qtpy_esp32s2\variant.cpp (1 overeenkomsten)
+	Regel 36:   pinMode(NEOPIXEL_POWER, OUTPUT);
+  C:\Users\Lieven\.platformio\packages\framework-arduinoespressif32\variants\adafruit_qtpy_esp32s3_nopsram\variant.cpp (1 overeenkomsten)
+	Regel 36:   pinMode(NEOPIXEL_POWER, OUTPUT);
+  C:\Users\Lieven\.platformio\packages\framework-arduinoespressif32\variants\cytron_maker_feather_aiot_s3\variant.cpp (1 overeenkomsten)
+	Regel 35:   pinMode(VP_EN, OUTPUT);
+  C:\Users\Lieven\.platformio\packages\framework-arduinoespressif32\variants\department_of_alchemy_minimain_esp32s2\variant.cpp (1 overeenkomsten)
+	Regel 36:   pinMode(NEOPIXEL_POWER, OUTPUT);
+  C:\Users\Lieven\.platformio\packages\framework-arduinoespressif32\variants\esp32s3usbotg\variant.cpp (6 overeenkomsten)
+	Regel 38: 	pinMode(BOOST_EN,    OUTPUT); digitalWrite(BOOST_EN,    LOW);
+	Regel 39: 	pinMode(LIMIT_EN,    OUTPUT); digitalWrite(LIMIT_EN,    LOW);
+	Regel 40: 	pinMode(DEV_VBUS_EN, OUTPUT); digitalWrite(DEV_VBUS_EN, LOW);
+	Regel 41: 	pinMode(USB_HOST_EN, OUTPUT); digitalWrite(USB_HOST_EN, LOW);
+	Regel 44: 	pinMode(LCD_RST, OUTPUT); digitalWrite(LCD_RST, LOW);
+	Regel 45: 	pinMode(LCD_BL,  OUTPUT); digitalWrite(LCD_BL,  LOW);
+  C:\Users\Lieven\.platformio\packages\framework-arduinoespressif32\variants\tamc_termod_s3\variant.cpp (1 overeenkomsten)
+	Regel 35:   pinMode(CHG, INPUT_PULLUP);
+
+
+Searched projectdirectories for libdeps
+
+Zoeken "pinmode" (939 overeenkomsten in 308 uit 19735 bestanden)
+  C:\Users\Lieven\Documents\PlatformIO\Projects\CVO\BLE_met_DHT_ardpio\.pio\libdeps\esp32dev\DHT sensor library\DHT.cpp (4 overeenkomsten)
+	Regel  65:   pinMode(_pin, INPUT_PULLUP);
+	Regel 252:   pinMode(_pin, INPUT_PULLUP);
+	Regel 256:   pinMode(_pin, OUTPUT);
+	Regel 272:     pinMode(_pin, INPUT_PULLUP);
+   C:\Users\Lieven\Documents\PlatformIO\Projects\CVO\esp32_ble_cvo_ard\build\preproc\ctags_target_for_gcc_minus_e.cpp (2 overeenkomsten)
+	Regel 695:   pinMode(2, 0x02);
+	Regel 717:   pinMode(21, 0x02); // Declare the LED as an output
+
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\expanders\.pio\libdeps\esp32dev\Adafruit BusIO\Adafruit_SPIDevice.cpp (4 overeenkomsten)
+	Regel  94:     pinMode(_cs, OUTPUT);
+	Regel 103:     pinMode(_sck, OUTPUT);
+	Regel 113:       pinMode(_mosi, OUTPUT);
+	Regel 117:       pinMode(_miso, INPUT);
+
+
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\expanders\.pio\libdeps\esp32dev\Adafruit MCP23017 Arduino Library\README.md (2 overeenkomsten)
+	Regel 17: When using single pin operations such as _pinMode(pinId, dir)_ or _digitalRead(pinId)_  or _digitalWrite(pinId, val)_ then the pins are addressed using the ID's below. For example, for set the mode of _GPB0_ then use _pinMode(8, ...)_. **NOTE** The MCP23008 and MCP23S08 only have _GPAx_ pins.
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\expanders\.pio\libdeps\esp32dev\Adafruit MCP23017 Arduino Library\src\Adafruit_MCP23XXX.cpp (1 overeenkomsten)
+	Regel  82: void Adafruit_MCP23XXX::pinMode(uint8_t pin, uint8_t mode) {
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\expanders\.pio\libdeps\esp32dev\Adafruit MCP23017 Arduino Library\src\Adafruit_MCP23XXX.h (1 overeenkomsten)
+	Regel 50:   void pinMode(uint8_t pin, uint8_t mode);
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\expanders\src\MCP23017.cpp (1 overeenkomsten)
+	Regel  32: void MCP23017::pinMode(uint8_t pin, uint8_t mode, bool inverted)
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\expanders\src\MCP23017.h (3 overeenkomsten)
+	Regel 101: 	 * This library pinMode function behaves like Arduino's standard pinMode for consistency.
+	Regel 104: 	void pinMode(uint8_t pin, uint8_t mode, bool inverted = false);
+ 
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\gsm\.pio\libdeps\env\SparkFun u-blox Arduino Library\src\SparkFun_Ublox_Arduino_Library.cpp (1 overeenkomsten)
+	Regel   52:     pinMode((uint8_t)checksumFailurePin, OUTPUT);
+ 
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\gsm\.pio\libdeps\esp32dev\IoAbstraction\README.md (1 overeenkomsten)
+	Regel  61:  	ioDevicePinMode(ioExpander, 0, INPUT);
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\gsm\.pio\libdeps\esp32dev\IoAbstraction\src\arduino\ArduinoAnalogDevice.cpp (1 overeenkomsten)
+	Regel 51:     pinMode(pin, (direction == DIR_IN) ? INPUT : OUTPUT);
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\gsm\.pio\libdeps\esp32dev\IoAbstraction\src\arduino\ArduinoDigitalIO.cpp (1 overeenkomsten)
+	Regel 10:     pinMode(pin, mode);
+   C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\gsm\.pio\libdeps\esp32dev\IoAbstraction\src\IoAbstraction.cpp (9 overeenkomsten)
+	Regel  30: 		pinMode(writeLatchPin, OUTPUT);
+	Regel  31: 		pinMode(writeDataPin, OUTPUT);
+	Regel  32: 		pinMode(writeClockPin, OUTPUT);
+	Regel  37: 		pinMode(readLatchPin, OUTPUT);
+	Regel  38: 		pinMode(readDataPin, INPUT);
+	Regel  39: 		pinMode(readClockPin, OUTPUT);
+	Regel 157:     pinMode(readLatchPin, OUTPUT);
+	Regel 158:     pinMode(readDataPin, INPUT);
+	Regel 159:     pinMode(readClockPin, OUTPUT);
+    C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\gsm\.pio\libdeps\esp32dev\IoAbstraction\src\mbed\MbedDigitalIO.cpp (3 overeenkomsten)
+	Regel 20:             gpio_init_in_ex(theGpio->getGpio(), (PinName) pin, (PinMode)mode);
+	Regel 22:         theGpio->setPinMode(mode);
+	Regel 48:     intIn->mode(gpio->getPinMode() == INPUT_PULLUP ? PullUp : PullDown);
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\gsm\.pio\libdeps\esp32dev\IoAbstraction\src\mbed\MbedDigitalIO.h (9 overeenkomsten)
+	Regel 35:     uint8_t pinMode;
+	Regel 48:         this->pinMode = other.pinMode;
+	Regel 54:         this->pinMode = other.pinMode;
+	Regel 62:     void setPinMode(uint8_t mode) { pinMode = mode; }
+	Regel 63:     uint8_t getPinMode() { return pinMode; }
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\gsm\.pio\libdeps\esp32dev\IoAbstraction\src\MockIoAbstraction.h (10 overeenkomsten)
+	Regel  35:  * other than record the pinMode and write calls, it also allows the read
+	Regel  44:     uint8_t pinModes[16];
+	Regel  62:         for(int i=0;i<16;i++) pinModes[i] = 0xff;
+	Regel  91:         pinModes[pin] = mode;
+	Regel  97:         if(pinModes[pin] != OUTPUT) error = WRITE_NOT_OUTPUT;
+	Regel 103:         if(pinModes[pin] != INPUT && pinModes[pin] != INPUT_PULLUP) error = READ_NOT_INPUT;
+	Regel 186:                 if(pinModes[i] != OUTPUT) error = WRITE_NOT_OUTPUT;
+	Regel 189:                 if(pinModes[i] != INPUT && pinModes[i] != INPUT_PULLUP) error = READ_NOT_INPUT;
+
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\gsm\.pio\libdeps\esp32dev\SparkFun u-blox Arduino Library\src\SparkFun_Ublox_Arduino_Library.cpp (1 overeenkomsten)
+	Regel   52:     pinMode((uint8_t)checksumFailurePin, OUTPUT);
+  
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\gsm\.pio\libdeps\esp32dev\TinyGSM\src\TinyGsmClientXBee.h (1 overeenkomsten)
+	Regel  328:       pinMode(resetPin, OUTPUT);
+ 
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\ota\.pio\libdeps\d1_mini_ota\Adafruit BusIO\Adafruit_SPIDevice.cpp (4 overeenkomsten)
+	Regel  94:     pinMode(_cs, OUTPUT);
+	Regel 103:     pinMode(_sck, OUTPUT);
+	Regel 113:       pinMode(_mosi, OUTPUT);
+	Regel 117:       pinMode(_miso, INPUT);
+   C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\ota\.pio\libdeps\d1_mini_ota\Adafruit MCP23017 Arduino Library\README.md (2 overeenkomsten)
+	Regel 17: When using single pin operations such as _pinMode(pinId, dir)_ or _digitalRead(pinId)_  or _digitalWrite(pinId, val)_ then the pins are addressed using the ID's below. For example, for set the mode of _GPB0_ then use _pinMode(8, ...)_. **NOTE** The MCP23008 and MCP23S08 only have _GPAx_ pins.
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\ota\.pio\libdeps\d1_mini_ota\Adafruit MCP23017 Arduino Library\src\Adafruit_MCP23XXX.cpp (1 overeenkomsten)
+	Regel  82: void Adafruit_MCP23XXX::pinMode(uint8_t pin, uint8_t mode) {
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\ota\.pio\libdeps\d1_mini_ota\Adafruit MCP23017 Arduino Library\src\Adafruit_MCP23XXX.h (1 overeenkomsten)
+	Regel 50:   void pinMode(uint8_t pin, uint8_t mode);
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\ota\.pio\libdeps\esp32dev\Adafruit BusIO\Adafruit_SPIDevice.cpp (4 overeenkomsten)
+	Regel  94:     pinMode(_cs, OUTPUT);
+	Regel 103:     pinMode(_sck, OUTPUT);
+	Regel 113:       pinMode(_mosi, OUTPUT);
+	Regel 117:       pinMode(_miso, INPUT);
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\ota\src\MCP23017.cpp (1 overeenkomsten)
+	Regel  32: void MCP23017::pinMode(uint8_t pin, uint8_t mode, bool inverted)
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\ota\src\MCP23017.h (3 overeenkomsten)
+	Regel 101: 	 * This library pinMode function behaves like Arduino's standard pinMode for consistency.
+	Regel 104: 	void pinMode(uint8_t pin, uint8_t mode, bool inverted = false);
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\test_dht11_ino\.pio\libdeps\esp32dev\DHT sensor library\DHT.cpp (4 overeenkomsten)
+	Regel  65:   pinMode(_pin, INPUT_PULLUP);
+	Regel 252:   pinMode(_pin, INPUT_PULLUP);
+	Regel 256:   pinMode(_pin, OUTPUT);
+	Regel 272:     pinMode(_pin, INPUT_PULLUP);
+                
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Robotmaaier\sunray_github\sunray\src\ublox\SparkFun_Ublox_Arduino_Library.cpp (1 overeenkomsten)
+	Regel   52:     pinMode((uint8_t)checksumFailurePin, OUTPUT);
+
+
+    digitalRead in libdeps:
+    Zoeken "digitalRead(" (180 overeenkomsten in 102 uit 19735 bestanden)
+  C:\Users\Lieven\Documents\PlatformIO\Projects\CVO\BLE_met_DHT_ardpio\.pio\libdeps\esp32dev\DHT sensor library\DHT.cpp (1 overeenkomsten)
+	Regel 382:   while (digitalRead(_pin) == level) {
+  C:\Users\Lieven\Documents\PlatformIO\Projects\CVO\BLE_met_DHT_ardpio\.pio\libdeps\esp32dev\DHT sensor library for ESPx\DHTesp.cpp (1 overeenkomsten)
+	Regel 229: 		} while (digitalRead(pin) == (i & 1) ? HIGH : LOW);
+   C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\expanders\.pio\libdeps\esp32dev\Adafruit BusIO\Adafruit_SPIDevice.cpp (2 overeenkomsten)
+	Regel 209:           if (digitalRead(_miso)) {
+	Regel 253:           if (digitalRead(_miso)) {
+    C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\expanders\.pio\libdeps\esp32dev\Adafruit MCP23017 Arduino Library\src\Adafruit_MCP23XXX.cpp (1 overeenkomsten)
+	Regel 101: uint8_t Adafruit_MCP23XXX::digitalRead(uint8_t pin) {
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\expanders\.pio\libdeps\esp32dev\Adafruit MCP23017 Arduino Library\src\Adafruit_MCP23XXX.h (1 overeenkomsten)
+	Regel 51:   uint8_t digitalRead(uint8_t pin);
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\expanders\src\MCP23017.cpp (1 overeenkomsten)
+	Regel  81: uint8_t MCP23017::digitalRead(uint8_t pin)
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\expanders\src\MCP23017.h (1 overeenkomsten)
+	Regel 125: 	uint8_t digitalRead(uint8_t pin);
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\gsm\.pio\libdeps\esp32dev\IoAbstraction\src\arduino\ArduinoDigitalIO.cpp (1 overeenkomsten)
+	Regel 18:     return digitalRead(pin);
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\gsm\.pio\libdeps\esp32dev\IoAbstraction\src\BasicIoAbstraction.h (1 overeenkomsten)
+	Regel 132: inline uint8_t ioDeviceDigitalRead(IoAbstractionRef ioDev, pinid_t pin) { return ioDev->readValue(pin); }
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\ota\.pio\libdeps\d1_mini_ota\Adafruit BusIO\Adafruit_SPIDevice.cpp (2 overeenkomsten)
+	Regel 209:           if (digitalRead(_miso)) {
+	Regel 253:           if (digitalRead(_miso)) {
+C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\ota\.pio\libdeps\d1_mini_ota\Adafruit MCP23017 Arduino Library\src\Adafruit_MCP23XXX.cpp (1 overeenkomsten)
+	Regel 101: uint8_t Adafruit_MCP23XXX::digitalRead(uint8_t pin) {
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\ota\.pio\libdeps\d1_mini_ota\Adafruit MCP23017 Arduino Library\src\Adafruit_MCP23XXX.h (1 overeenkomsten)
+	Regel 51:   uint8_t digitalRead(uint8_t pin);
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\ota\.pio\libdeps\esp32dev\Adafruit BusIO\Adafruit_SPIDevice.cpp (2 overeenkomsten)
+	Regel 209:           if (digitalRead(_miso)) {
+	Regel 253:           if (digitalRead(_miso)) {
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\ota\.pio\libdeps\esp32dev\Adafruit MCP23017 Arduino Library\src\Adafruit_MCP23XXX.cpp (1 overeenkomsten)
+	Regel 101: uint8_t Adafruit_MCP23XXX::digitalRead(uint8_t pin) {
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\ota\.pio\libdeps\esp32dev\Adafruit MCP23017 Arduino Library\src\Adafruit_MCP23XXX.h (1 overeenkomsten)
+	Regel 51:   uint8_t digitalRead(uint8_t pin);
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\ota\src\MCP23017.cpp (1 overeenkomsten)
+	Regel  81: uint8_t MCP23017::digitalRead(uint8_t pin)
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\ota\src\MCP23017.h (1 overeenkomsten)
+	Regel 125: 	uint8_t digitalRead(uint8_t pin);
+
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Onderdeeltesten\test_dht11_ino\.pio\libdeps\esp32dev\DHT sensor library\DHT.cpp (1 overeenkomsten)
+	Regel 380:   while (digitalRead(_pin) == level) {
+
+  C:\Users\Lieven\Documents\PlatformIO\Projects\Robotmaaier\sunray_github\sunray\i2c.cpp (5 overeenkomsten)
+	Regel  41:   boolean SCL_LOW = (digitalRead(SCL) == LOW); // Check is SCL is Low.
+	Regel  46:   boolean SDA_LOW = (digitalRead(SDA) == LOW);  // vi. Check SDA input.
+	Regel  60:     SCL_LOW = (digitalRead(SCL) == LOW); // Check if SCL is Low.
+	Regel  65:       SCL_LOW = (digitalRead(SCL) == LOW);
+	Regel  70:     SDA_LOW = (digitalRead(SDA) == LOW); //   and check SDA input again and loop
+ 
