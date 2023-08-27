@@ -7,11 +7,14 @@
 #include <config.h>
 #include <settings.h>
 
-#include <Wire.h>
+// forward declaration of functions
+
 unsigned int crc16(unsigned int crc, unsigned char *buf, int len);
 bool decodeLine(String line);
 void setupDataReadout();
 double getValue(String buffer, char startchar, char endchar);
+
+ConfNvs confNvs;
 
 void task_ota(void *args)
 {
@@ -27,7 +30,7 @@ void task_ota(void *args)
 void setup()
 {
   Serial.begin(115200);
-  ConfNvs confNvs;
+
   confNvs.begin();
   /**
    * Connect to Wifi
@@ -49,7 +52,7 @@ String lineRead = "";
 unsigned int CRC = 0x0000;
 unsigned int finalCRC = 0x0000;
 #define DEBUGPRINT 0
-#define DEBUGPRINTHEX 1
+#define DEBUGPRINTHEX 0
 void loop()
 {
 
@@ -61,19 +64,28 @@ void loop()
     Serial.print(" ");
     Serial.print(int(charRead));
     Serial.print("=");
-    if( int(charRead) == 10  || int(charRead) == 13) {
-      // Deze niet printen op het scerm 
-    } else {
-      Serial.print(charRead);
+    if (int(charRead) == 13)
+    {
+      // Do not print a 13 without the 10, because it will cause
+      // printing to resume from the start of the line, hence
+      // overwriting what was printed before
     }
-        if( int(charRead) == 10 ) {
-     Serial.println();
+    else if (int(charRead) == 10)
+    {
+      Serial.println();
+    }
+    else
+    {
+      Serial.print(charRead);
     }
 #endif
 #if DEBUGPRINT
     Serial.print(charRead);
 #endif
 
+    /**
+     * A telegram runs from / till !, both included in the CRC
+     */
     if (charRead == '/')
     {
       CRC = 0;
@@ -84,61 +96,25 @@ void loop()
       finalCRC = CRC;
       Serial.printf("%X=", CRC);
     }
-
-    if ( int(charRead) == 10)
+    /**
+     * lines in the telegram end with \13\10 (CRLF)
+     */
+    if (int(charRead) == 10)
     {
-#if !DEBUGPRINT && !DEBUGPRINTHEX
-      Serial.println();
-      Serial.println("lineRead");
-      for (int i = 0; i < lineRead.length(); i++)
+      if (decodeLine(lineRead))
       {
-        Serial.print(int(lineRead.substring(i, i + 1).c_str()));
-        Serial.print(" ");
-        Serial.print(lineRead.substring(i, i + 1).c_str());
+        // this means that the telegram is processed completely and valid (crc)
+        Serial.println();
+        Serial.println("totaal verbruik, L1,L2,L3");
+        Serial.printf("%f %f %f %f\n", telegramObjects[4].value, telegramObjects[6].value, telegramObjects[7].value, telegramObjects[8].value);
       }
-      Serial.println(lineRead);
-#endif
-#if DEBUGPRINTHEX
-      // Serial.printf("Gelezen lengte: %i \n", lineRead.length());
-#endif
-      // if (lineRead.startsWith("!"))
-      {
-        if (decodeLine(lineRead))
-        {
-          // this means that the telegram is processed completely and valid (crc)
-          Serial.println();
-          Serial.println("totaal verbruik, L1,L2,L3");
-          Serial.printf("%f %f %f %f\n", telegramObjects[4].value, telegramObjects[6].value, telegramObjects[7].value, telegramObjects[8].value);
-        }
-      }
+
       lineRead = "";
-      
-    } // end of processing end of line (10 or 13)
+
+    } // end of processing end of line (10)
   }
 
   delay(1);
-}
-
-unsigned int crc16(unsigned int crc, unsigned char *buf, int len)
-{
-  for (int pos = 0; pos < len; pos++)
-  {
-    crc ^= (unsigned int)buf[pos];
-
-    for (int i = 8; i != 0; i--)
-    {
-      if ((crc & 0x0001) != 0)
-      {
-        crc >>= 1;
-        crc ^= 0xA001;
-      }
-      else
-      {
-        crc >>= 1;
-      }
-    }
-  }
-  return crc;
 }
 
 /**
@@ -156,13 +132,13 @@ bool decodeLine(String line)
   // return false;
   if (line.startsWith("!"))
   {
-    // Serial.printf("\n%i %i %i %i\n", telegramObjects[4].value, telegramObjects[6].value, telegramObjects[7].value, telegramObjects[8].value);
 
-    // Serial.print("!!!!!!!!!!!!!!!!!!!!!!!!");
     unsigned long challengeCRC = std::stoul(("0x" + line.substring(1, 5)).c_str(), nullptr, 16);
+#ifdef DEBUG
     Serial.print(challengeCRC);
     Serial.print("  ");
     Serial.println(finalCRC);
+#endif
 
     if (challengeCRC == finalCRC)
     {
@@ -210,7 +186,7 @@ double getValue(String buffer, char startchar, char endchar)
     return -1;
   }
   String valueStr = buffer.substring(start + 1, end);
-  Serial.println(valueStr);
+  // Serial.println(valueStr);
   char *e;
   errno = 0;
   double x = std::strtod(valueStr.c_str(), &e);
@@ -341,4 +317,26 @@ void setupDataReadout()
     Serial.println(String(MQTT_ROOT_TOPIC) + "/" + telegramObjects[i].name);
   }
 #endif
+}
+
+unsigned int crc16(unsigned int crc, unsigned char *buf, int len)
+{
+  for (int pos = 0; pos < len; pos++)
+  {
+    crc ^= (unsigned int)buf[pos];
+
+    for (int i = 8; i != 0; i--)
+    {
+      if ((crc & 0x0001) != 0)
+      {
+        crc >>= 1;
+        crc ^= 0xA001;
+      }
+      else
+      {
+        crc >>= 1;
+      }
+    }
+  }
+  return crc;
 }
