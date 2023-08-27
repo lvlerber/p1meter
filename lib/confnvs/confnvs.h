@@ -16,6 +16,7 @@ typedef enum{
  CONFIG_BLUETOOTH_PIN_CODE,
 
 // NTRIP,
+/* 
  CONFIG_NTRIP_SERVER_ACTIVE,
  CONFIG_NTRIP_SERVER_COLOR,
  CONFIG_NTRIP_SERVER_HOST,
@@ -23,7 +24,7 @@ typedef enum{
  CONFIG_NTRIP_SERVER_MOUNTPOINT,
  CONFIG_NTRIP_SERVER_USERNAME,
  CONFIG_NTRIP_SERVER_PASSWORD,
-
+ */
  CONFIG_NTRIP_CLIENT_ACTIVE,
  CONFIG_NTRIP_CLIENT_COLOR,
  CONFIG_NTRIP_CLIENT_HOST,
@@ -31,7 +32,7 @@ typedef enum{
  CONFIG_NTRIP_CLIENT_MOUNTPOINT,
  CONFIG_NTRIP_CLIENT_USERNAME,
  CONFIG_NTRIP_CLIENT_PASSWORD,
-
+/* 
  CONFIG_NTRIP_CASTER_ACTIVE,
  CONFIG_NTRIP_CASTER_COLOR,
  CONFIG_NTRIP_CASTER_PORT,
@@ -65,7 +66,7 @@ typedef enum{
  CONFIG_UART_FLOW_CTRL_RTS,
  CONFIG_UART_FLOW_CTRL_CTS,
  CONFIG_UART_LOG_FORWARD,
-
+ */
 // WiFi,
  CONFIG_WIFI_AP_ACTIVE,
  CONFIG_WIFI_AP_COLOR,
@@ -80,6 +81,10 @@ typedef enum{
  CONFIG_WIFI_STA_COLOR,
  CONFIG_WIFI_STA_SSID,
  CONFIG_WIFI_STA_PASSWORD,
+ CONFIG_WIFI_STA_SSID_2,
+ CONFIG_WIFI_STA_PASSWORD_2,
+ CONFIG_WIFI_STA_SSID_3,
+ CONFIG_WIFI_STA_PASSWORD_3,
  CONFIG_WIFI_STA_SCAN_MODE_ALL,
  CONFIG_WIFI_STA_STATIC,
  CONFIG_WIFI_STA_IP,
@@ -87,6 +92,10 @@ typedef enum{
  CONFIG_WIFI_STA_SUBNET,
  CONFIG_WIFI_STA_DNS_A,
  CONFIG_WIFI_STA_DNS_B,
+ CONFIG_GSM_SIMPIN,
+ CONFIG_GSM_APN,
+ CONFIG_GSM_GPRS_USER,
+ CONFIG_GSM_GPRS_PASS,
 // size of the config item array
  CONFIG_ITEM_SIZE
 } config_item_t;
@@ -124,49 +133,6 @@ union config_ip_addr_t{
         bytes{(uint8_t) byte1,(uint8_t) byte2,(uint8_t) byte3,(uint8_t) byte4} {}
 } ;
 
-union config_item_value {
-    bool bool1;
-    int8_t int8;
-    int16_t int16;
-    int32_t int32;
-    int64_t int64;
-    uint8_t uint8;
-    uint16_t uint16;
-    uint32_t uint32;
-    uint64_t uint64;
-    std::string str;
-    // struct dummystruct {std::string str;} str;
-    config_color_t color;
-    config_ip_addr_t ip;
-    struct blob_t {
-        uint8_t *data;
-        size_t length;
-    } blob;
-    char union_c[24]; 
-    config_item_value(bool val)  : bool1(val)  {}
-    config_item_value(int8_t val)  : int8(val)  {}
-    config_item_value(int16_t val)  : int16(val)  {}
-    config_item_value(int32_t val)  : int32(val)  {}
-    config_item_value(int64_t val)  : int64(val)  {}
-    config_item_value(uint8_t val)  : uint8(val)  {}
-    config_item_value(uint16_t val)  : uint16(val)  {}
-    config_item_value(uint32_t val)  : uint32(val)  {}
-    config_item_value(uint64_t val)  : uint64(val)  {}
-    config_item_value(std::string val)  : str{val}  {}    
-    config_item_value(const char *val)  : str{std::move(val)}  {}    
-    config_item_value(config_color_t val)  : color(val)  {}
-    config_item_value(config_ip_addr_t val)  : ip(val)  {}
-    config_item_value(blob_t val)  : blob(val)  {}
- 
-    // default constructor has to initialize the string or else it is impossible to assign a value to the string.
-    // The other types in the union are fundamental types and can be overwritten independent of the previous content of the memory
-    config_item_value() : str{std::move("")} {
-        //std::fill(union_c, union_c + 20, 0); 
-        str=std::move("");
-    } 
-    config_item_value (const config_item_value &x) {};
-    ~config_item_value() {}; 
-} ;
 class ConfNvs {
     public:
         void begin();
@@ -178,12 +144,10 @@ class ConfigItem {
         String key;
         config_item_type_t type;
         bool secret;
-        config_item_value val;
+ 
+    ConfigItem(std::string  key , config_item_type_t type, bool secret) ;    
 
-    template <typename T>
-    ConfigItem(std::string  key , config_item_type_t type, bool secret, T val ) ;    
-    template <typename T>
-    ConfigItem(const char  *key, config_item_type_t type, bool secret, T val ) ;
+    ConfigItem(const char  *key, config_item_type_t type, bool secret ) ;
     ConfigItem();
     ConfigItem(const ConfigItem &x) ;
 } ;

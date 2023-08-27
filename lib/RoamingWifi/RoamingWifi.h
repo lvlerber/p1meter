@@ -7,7 +7,7 @@ extern "C"
 
 
 
-    void SWifi_start();
+    // void Wifi_start();
     class RoamingWiFiClass
     {
 
